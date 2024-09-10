@@ -15,7 +15,7 @@ import golden_beach as gb
 gb.make_new_model('LiftModel.xlsx', 'sacinp.base', 'sacinp.lift')
 
 # Writes a new file with piping loads in SACS format
-gb.write_piping_loads('PipingLoads.xlsx', 'sacinp.base', 'sacinp.lift')
+gb.write_piping_loads('PipingLoads.xlsx', 'loadcn.txt')
 
 # Writes a new file with soil spring data in SACS format
 rng = gb.SoilRanges(tz='B10:G30', qz='I10:Q30', py='S10:AH62')
