@@ -1,0 +1,30 @@
+site_name: golden_beach
+theme:
+  name: material
+  features:
+    navigation.tabs
+    navigation.sections
+    navigation.top
+    toc.integrate
+  palette:
+    - scheme: default
+      toggle: 
+        icon: material/brightness-7
+        name: Switch to dark mode
+      primary: teal
+      accent: purple
+    - scheme: slate
+      toggle: 
+        icon: material/brightness-4
+        name: Switch to light mode
+      primary: teal
+      accent: lime
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  
