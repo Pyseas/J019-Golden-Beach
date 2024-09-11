@@ -2,7 +2,7 @@ site_name: golden_beach
 theme:
   name: material
   features:
-    navigation.tabs
+    # navigation.tabs
     navigation.sections
     navigation.top
     toc.integrate
