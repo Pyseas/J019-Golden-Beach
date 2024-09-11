@@ -1,16 +1,16 @@
 # make_new_model
-Modify a SACS base model according to the contents of a spreadsheet. Possible modifications are:
+Modify a SACS base model according to the contents of a spreadsheet.
+
+Possible modifications are:
 
 - Update title and analysis type description
-- Add new members
-- Add new joints
-- Modify existing joints (change fixity)
-- Remove basic load cases
-- Add new basic load cases
+- Add new / modify existing members
+- Add new / modify existing joints
+- Remove existing / add new basic load cases
 - Create load combinations
 - Flood selected GRUPS (also inserts HYDRO and HYDRO2 lines)
 - Insert LCSEL
-- Insert notes
+- Insert notes (as comments)
 
 The following sections describe the use of each of the sheets in the spreadsheet.
 
