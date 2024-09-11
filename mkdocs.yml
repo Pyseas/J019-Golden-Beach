@@ -24,7 +24,7 @@ nav:
   - make_new_model: make_new_model.md
   - piping_loads: piping_loads.md
   - soil_springs: soil_springs.md
-  - Reference: reference.md
+  - Reference: ref.md
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
