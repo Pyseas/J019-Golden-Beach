@@ -218,9 +218,6 @@ def write_soil_springs(xlname: str, outname: str,
         ranges (SoilRanges): SoilRanges object.
         tz_title (str): Title to be added as comment at start of T-Z section.
 
-    Returns:
-        None
-
     """
     
     xlpath = PATH.joinpath(xlname)

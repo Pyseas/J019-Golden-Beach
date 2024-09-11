@@ -120,11 +120,8 @@ def make_new_model(xlname: str, basename: str, newname: str):
 
     Args:
         xlname (str): Spreadsheet filename.
-        basename (str): Filename of the SACS base model.
-        newname (str): Filename of the output SACS file.
-
-    Returns:
-        None
+        basename (str): SACS base model filename.
+        newname (str): SACS output filename.
 
     """
 

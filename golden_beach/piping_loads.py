@@ -14,9 +14,6 @@ def write_piping_loads(xlname: str, outname: str) -> None:
         xlname (str): Spreadsheet filename.
         outname (str): Output filename.
 
-    Returns:
-        None
-
     """
 
     xlpath = PATH.joinpath(xlname)

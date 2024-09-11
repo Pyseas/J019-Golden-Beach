@@ -26,14 +26,14 @@ The script looks for a line in the base file containing *ANALYSIS TYPE* and repl
 ~~~
 
 ## members
-If a member already exists in the base file then it is modified.
+Adds new members or modifies existing members. Blank cells in the spreadsheet are ignored.
 
-Note that the script won't delete existing data based on a blank cell, it will only overwrite a value if the spreadsheet cell contains a value.
-
-If a member does not already exist in the base file then a new member is created.
+If a member doesn't exist in the base file then a new member is created.
 
 ## joints
-Adds new joints or modifies fixity of existing joint. If joint ID already exists then the coordinates are ignored and the fixity is added, otherwise a new joint is created.
+Adds new joints or modifies existing joints. Blank cells in the spreadsheet are ignored.
+
+If a joint doesn't exist in the base file then a new member is created.
 
 For PILEHD fixity enter PILEHD in the FX column.
 
