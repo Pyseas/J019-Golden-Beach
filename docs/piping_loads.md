@@ -14,4 +14,4 @@ Input list of load cases:
 Joint labels are assumed to be in the first column, rows 3 to 21.
 Data starts in column specified on Load Case ID sheet, rows 3 to 21, 6 columns wide.
 
-![alt](/docs/img/fig1.png)
+![alt](img/fig1.png)
