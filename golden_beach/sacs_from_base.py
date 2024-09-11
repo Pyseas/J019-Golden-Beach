@@ -118,18 +118,13 @@ def make_new_model(xlname: str, basename: str, newname: str):
     Add new or modify existing joints/members, add/remove basic load conditions,
     add load combinations.
 
-    Parameters
-    ----------
-    xlname : str
-        Spreadsheet name (includes .xlsx extension)
-    basename : str
-        Filename of the SACS base model.
-    newname : str
-        Filename of the output SACS file.
+    Args:
+        xlname (str): Spreadsheet filename.
+        basename (str): Filename of the SACS base model.
+        newname (str): Filename of the output SACS file.
 
-    Returns
-    -------
-    None
+    Returns:
+        None
 
     """
 

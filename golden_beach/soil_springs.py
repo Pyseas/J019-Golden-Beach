@@ -8,6 +8,14 @@ PATH = Path('.')
 
 @dataclass
 class SoilRanges:
+    """Excel ranges for T-Z, Q-Z and P-Y data.
+
+    Attributes:
+        tz (str): Excel range (e.g. 'B10:H30') for T-Z data.
+        qz (str): Excel range for Q-Z data.
+        py (str): Excel range for P-Y data.
+
+    """
     tz: str
     qz: str
     py: str
@@ -202,6 +210,18 @@ def range_to_ind(rng: str) -> tuple[int, int, str]:
 
 def write_soil_springs(xlname: str, outname: str,
                        ranges: SoilRanges, tz_title: str) -> None:
+    """Write soil springs data from spreadsheet to SACS format file.
+
+    Args:
+        xlname (str): Spreadsheet filename.
+        outname (str): Output filename.
+        ranges (SoilRanges): SoilRanges object.
+        tz_title (str): Title to be added as comment at start of T-Z section.
+
+    Returns:
+        None
+
+    """
     
     xlpath = PATH.joinpath(xlname)
     outpath = PATH.joinpath(outname)

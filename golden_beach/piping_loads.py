@@ -8,6 +8,16 @@ PATH = Path('.')
 
 
 def write_piping_loads(xlname: str, outname: str) -> None:
+    """Write load data from a spreadsheet to a SACS format file.
+
+    Args:
+        xlname (str): Spreadsheet filename.
+        outname (str): Output filename.
+
+    Returns:
+        None
+
+    """
 
     xlpath = PATH.joinpath(xlname)
     outpath = PATH.joinpath(outname)
