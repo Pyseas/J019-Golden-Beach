@@ -43,7 +43,7 @@ This sheet contains a list of basic load cases and a list of text file names.
 ### Basic load cases
 Each load case is either kept or removed based on the contents of column C.
 
-A list of load cases (including descriptions) is inserted as a comment block immediately after the line containing *BASIC LOAD CASES*, in the following format (e.g.):
+A list of load cases (including descriptions) is inserted as a comment block immediately after the line containing *BASIC LOAD CASES* in the following format (e.g.):
 
 ~~~
 ****   BASIC LOAD CASES                                           *

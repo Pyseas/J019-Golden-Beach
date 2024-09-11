@@ -3,9 +3,10 @@ theme:
   name: material
   features:
     # navigation.tabs
-    navigation.sections
-    navigation.top
-    toc.integrate
+    # navigation.sections
+    # navigation.top
+    # navigation.expand
+    # toc.integrate
   palette:
     - scheme: default
       toggle: 

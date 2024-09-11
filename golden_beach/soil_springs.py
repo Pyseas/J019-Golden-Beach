@@ -195,17 +195,18 @@ def split_cell_address(cell_address: str) -> tuple[int, str]:
 
 
 def range_to_ind(rng: str) -> tuple[int, int, str]:
-
+    # Converts Excel range (e.g. 'A2:BA61') to start_row,
+    # nrows and cols (e.g. 'A:BA')
     start, end = rng.split(':')
 
     row0, col0 = split_cell_address(start)
     row1, col1 = split_cell_address(end)
 
     start_row = row0
-    nrow = row1 - row0 + 1
+    nrows = row1 - row0 + 1
     cols = f'{col0}:{col1}'
 
-    return start_row, nrow, cols
+    return start_row, nrows, cols
 
 
 def write_soil_springs(xlname: str, outname: str,
