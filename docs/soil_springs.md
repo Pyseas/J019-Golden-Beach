@@ -12,6 +12,6 @@ Spreadsheet units are assumed to be:
 
  - T-Z - kPa and mm
  - Q-Z - kPa and unitless
- - P-Y - kM/m and mm
+ - P-Y - kN/m and mm
 
 ![alt](fig2.png)
