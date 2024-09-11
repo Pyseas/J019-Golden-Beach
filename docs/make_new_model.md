@@ -4,8 +4,8 @@ Modify a SACS base model according to the contents of a spreadsheet.
 Possible modifications are:
 
 - Update title and analysis type description
-- Add new / modify existing members
 - Add new / modify existing joints
+- Add new / modify existing members
 - Remove existing / add new basic load cases
 - Create load combinations
 - Flood selected GRUPS (also inserts HYDRO and HYDRO2 lines)
@@ -25,17 +25,17 @@ The script looks for a line in the base file containing *ANALYSIS TYPE* and repl
 ****   ANALYSIS TYPE  : analysis_type
 ~~~
 
-## members
-Adds new members or modifies existing members. Blank cells in the spreadsheet are ignored.
-
-If a member doesn't exist in the base file then a new member is created.
-
 ## joints
 Adds new joints or modifies existing joints. Blank cells in the spreadsheet are ignored.
 
 If a joint doesn't exist in the base file then a new member is created.
 
 For PILEHD fixity enter PILEHD in the FX column.
+
+## members
+Adds new members or modifies existing members. Blank cells in the spreadsheet are ignored.
+
+If a member doesn't exist in the base file then a new member is created.
 
 ## LOADCN
 This sheet contains a list of basic load cases and a list of text file names.

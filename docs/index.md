@@ -20,5 +20,5 @@ gb.write_piping_loads('PipingLoads.xlsx', 'loadcn.txt')
 # Write a new file with soil spring data in SACS format
 rng = gb.SoilRanges(tz='B10:G30', qz='I10:Q30', py='S10:AH62')
 
-gb.write_soil_springs('Springs.xlsx', 'psi_low.dat', rng, 'LOW ESTIMATE')
+gb.write_soil_springs('Springs.xlsx', 'psi_low.dat', rng, 'LOW ESTIMATE', B=2.54)
 ```
