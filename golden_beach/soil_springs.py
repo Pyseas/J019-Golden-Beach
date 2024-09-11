@@ -209,8 +209,8 @@ def range_to_ind(rng: str) -> tuple[int, int, str]:
     return start_row, nrows, cols
 
 
-def write_soil_springs(xlname: str, outname: str,
-                       ranges: SoilRanges, tz_title: str) -> None:
+def write_soil_springs(xlname: str, outname: str, ranges: SoilRanges,
+                       tz_title: str, B: float) -> None:
     """Write soil springs data from spreadsheet to SACS format file.
 
     Args:
@@ -218,9 +218,10 @@ def write_soil_springs(xlname: str, outname: str,
         outname (str): Output filename.
         ranges (SoilRanges): SoilRanges object.
         tz_title (str): Title to be added as comment at start of T-Z section.
+        B (float): For plugged pile = OD, unplugged=WT, in cm
 
     """
-    
+
     xlpath = PATH.joinpath(xlname)
     outpath = PATH.joinpath(outname)
 
@@ -231,12 +232,12 @@ def write_soil_springs(xlname: str, outname: str,
 
     # Q-Z
     start_row, nrow, cols = range_to_ind(ranges.qz)
-    q, z = read_range(xlpath, start_row=10, nrow=21, cols='I:Q')
-    qz_str = get_qz_str(q, z, thk=2.54)
+    q, z = read_range(xlpath, start_row, nrow, cols)
+    qz_str = get_qz_str(q, z, thk=B)
 
     # P-Y
     start_row, nrow, cols = range_to_ind(ranges.py)
-    p, y = read_range(xlpath, start_row=10, nrow=53, cols='S:AH')
+    p, y = read_range(xlpath, start_row, nrow, cols)
     py_str = get_py_str(p, y)
 
     outstr = get_intro()
