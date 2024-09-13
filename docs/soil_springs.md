@@ -14,4 +14,4 @@ Spreadsheet units are assumed to be:
  - Q-Z - kPa and unitless
  - P-Y - kN/m and mm
 
-![alt](fig2.png)
+![alt](img/fig2.png)

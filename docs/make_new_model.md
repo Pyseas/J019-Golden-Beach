@@ -62,7 +62,7 @@ Note that the load cases in the text files are not added to the BASIC LOAD CASES
 ## LCOMB
 The script inserts a new LCOMB line for each column in this sheet, starting at column D.
 
-Load combinations are inserted immediately before the first *END*.
+Load combinations are inserted immediately before the first *END* in the base file.
 
 ### TODO
 

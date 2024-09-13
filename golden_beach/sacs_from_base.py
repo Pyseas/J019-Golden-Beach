@@ -210,7 +210,7 @@ def make_new_model(xlname: str, basename: str, newname: str):
 
     notes = pd.read_excel(xlpath, sheet_name='Notes', header=None, skiprows=1)
 
-    # First loop through file to find indices
+    # First, loop through file to find indices where new lines will be inserted
     vars = ['MEMBER', 'JOINT', 'CODE', 'LOAD']
     ends = []
     sections = {}
@@ -310,7 +310,7 @@ def make_new_model(xlname: str, basename: str, newname: str):
                 outstr += line
                 continue
 
-            # Modify existing members
+            # Modify existing member
             if line[:6] == 'MEMBER' and len(line) > 10:
                 mem_id = line[7:15]
                 if mem_id in mems['ID'].values:
