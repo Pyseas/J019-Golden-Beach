@@ -45,6 +45,7 @@ def jnt_coords(row: dict) -> str:
 
     outstr = 'JOINT ' + row['JNT'] + ' '
     if row['X'] == -123456:
+        # If coordinate cells in spreadsheet are blank
         outstr = 'xxx'
     else:
         for var in ['X', 'Y', 'Z']:
@@ -289,17 +290,20 @@ def make_new_model(xlname: str, basename: str, newname: str):
             if line[:5] == 'JOINT' and len(line) > 10:
                 jnt_id = line[6:10]
                 if jnt_id in jnts['JNT'].values:
-                    new_joints.remove(jnt_id)
+                    if jnt_id in new_joints:
+                        new_joints.remove(jnt_id)
+                    else:
+                        continue
                     ind = jnts.index[jnts['JNT'] == jnt_id].tolist()
                     jnt_dict = jnts.iloc[ind].to_dict(orient='records')[0]
                     newline = jnt_coords(jnt_dict)
-                    if newline == 'xxx':
+                    if newline == 'xxx': # spreadsheet cells were blank
                         outstr += jnt_str(jnt_dict, line.strip()) + '\n'
                     else:
                         outstr += jnt_str(jnt_dict, newline) + '\n'
                     continue
 
-            # Add new joints
+            # Add new joints at end of JOINT section
             if iln == sections['JOINT'] + 1:
                 if len(new_joints) > 0:
                     for jnt_id in new_joints:
