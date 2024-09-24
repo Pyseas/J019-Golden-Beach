@@ -13,9 +13,6 @@ def mem_str(row: Any, line: str) -> str:
     if len(line) < 41:
         line = f'{line: <41}'
 
-    outstr = 'MEMBER '
-    outstr += row['ID'] + ' ' + row['GRUP']
-
     stress = row['STRESS']
     if row['STRESS'] == -123456:
         stress = line[19:21]
@@ -36,7 +33,27 @@ def mem_str(row: Any, line: str) -> str:
     if row['ANGLE'] == -123456:
         angle = line[34:41]
 
+    offset = False
+    mem_offset = '\nMEMBER OFFSETS' + ' ' * 21
+    offset_option = ' '
+    for end in ['A', 'B']:
+        for dof in ['X', 'Y', 'Z']:
+            val = row[f'OFF_{end}{dof}']
+            if val == -123456:
+                mem_offset += '      '
+            else:
+                offset_option = '1'
+                offset = True
+                if abs(val) >= 10.0:
+                    mem_offset += f'{val:6.2f}'
+                else:
+                    mem_offset += f'{val:6.3f}'
+
+    outstr = 'MEMBER' + offset_option
+    outstr += row['ID'] + ' ' + row['GRUP']
     outstr += stress + gap + fix_a + fix_b + angle + line[41:]
+    if offset:
+        outstr += mem_offset
 
     return outstr
 
@@ -145,7 +162,7 @@ def make_new_model(xlname: str, basename: str, newname: str):
     # jnts.set_index('JNT', inplace=True)
 
     mems = pd.read_excel(
-        xlpath, sheet_name='members', skiprows=1, usecols='A:H',
+        xlpath, sheet_name='members', skiprows=1, usecols='A:N',
         converters={'FIX_A': str, 'FIX_B': str})
     mems.fillna(-123456, inplace=True)
     mems['ID'] = mems['A'] + mems['B']
@@ -293,6 +310,7 @@ def make_new_model(xlname: str, basename: str, newname: str):
                     if jnt_id in new_joints:
                         new_joints.remove(jnt_id)
                     else:
+                        # This skips the second line (i.e. fixity) of an existing joint
                         continue
                     ind = jnts.index[jnts['JNT'] == jnt_id].tolist()
                     jnt_dict = jnts.iloc[ind].to_dict(orient='records')[0]
@@ -318,7 +336,11 @@ def make_new_model(xlname: str, basename: str, newname: str):
             if line[:6] == 'MEMBER' and len(line) > 10:
                 mem_id = line[7:15]
                 if mem_id in mems['ID'].values:
-                    new_mems.remove(mem_id)
+                    if mem_id in new_mems:
+                        new_mems.remove(mem_id)
+                    else:
+                        # This skips the second line (i.e. offset) of an existing member
+                        continue
                     ind = mems.index[mems['ID'] == mem_id].tolist()
                     mem_dict = mems.iloc[ind].to_dict(orient='records')[0]
                     outstr += mem_str(mem_dict, line.strip()) + '\n'
