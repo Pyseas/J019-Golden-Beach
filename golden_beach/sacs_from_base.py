@@ -44,10 +44,21 @@ def mem_str(row: Any, line: str) -> str:
             else:
                 offset_option = '1'
                 offset = True
-                if abs(val) >= 10.0:
-                    mem_offset += f'{val:6.2f}'
+                if val <= -100000:
+                    val_str = 'xxxxxx' # Need exponential format
+                elif -100000 < val <= -1000:
+                    val_str = f'{val:6.0f}'
+                elif -1000 < val <= -100:
+                    val_str = f'{val:6.1f}'
+                elif -100 < val <= 1000:
+                    val_str = f'{val:6.2f}'
+                elif 1000 < val <= 10000:
+                    val_str = f'{val:6.1f}'
+                elif 10000 < val <= 1000000:
+                    val_str = f'{val:6.0f}'
                 else:
-                    mem_offset += f'{val:6.3f}'
+                    val_str = 'xxxxxx' # Need exponential format
+                mem_offset += val_str
 
     outstr = 'MEMBER' + offset_option
     outstr += row['ID'] + ' ' + row['GRUP']
@@ -120,7 +131,7 @@ def read_loadfiles(loadfiles: list[str]) -> str:
 
     outstr = ''
     for loadfile in loadfiles:
-        loadpath = PATH.joinpath('load_files', loadfile)
+        loadpath = PATH.joinpath('insert_files', loadfile)
         if os.path.getsize(loadpath) < 10:
             continue
         with open(loadpath, 'r') as f:
@@ -284,6 +295,17 @@ def make_new_model(xlname: str, basename: str, newname: str):
                     outstr += read_loadfiles(loadfiles) + '\n'
                 continue
 
+            if line.strip() == '***ADD LCOMB':
+                outstr += lcomb_str(lcomb) + 'END\n'
+                continue
+
+            if line.strip() == '***ADD CDM MGROV PGROV' and ngrup > 0:
+                fpath = PATH.joinpath('insert_files', 'inplace_MGROV CDM.txt')
+                with open(fpath, 'r') as f:
+                    for line in f:
+                        outstr += line
+                continue
+
             if 'ANALYSIS TYPE' in line:
                 outstr += f'****   ANALYSIS TYPE  : {analysis_type: <61}*\n'
                 continue
@@ -293,9 +315,8 @@ def make_new_model(xlname: str, basename: str, newname: str):
                 outstr += lcsel_str + line
                 continue
 
-            # LCOMB is inserted before first END
+            # First END is ignored, moved end of LCOMB
             if iln == sections['END']:
-                outstr += lcomb_str(lcomb) + line
                 continue
 
             # HYDRO strings are inserted before UCPART
