@@ -99,7 +99,14 @@ def jnt_str(row: dict, line:str) -> str:
                 elasti += ' ' * 7
             elif row[var] > 0:
                 fixity += '1'
-                elasti += f'{float(row[var]): >7}'
+                stiff = float(row[var])
+                if stiff >= 100000:
+                    elasti += f'{stiff:7.0f}'
+                elif 1000 <= stiff < 100000:
+                    elasti += f'{stiff:7.1f}'
+                else:
+                    elasti += f'{stiff:7.2f}'
+
     if (fixity == 'PILEHD') or ('1' in fixity):
         outstr += ' '*22 + fixity
     if elasti.strip():
@@ -315,7 +322,7 @@ def make_new_model(xlname: str, basename: str, newname: str):
                 outstr += lcsel_str + line
                 continue
 
-            # First END is ignored, moved end of LCOMB
+            # First END is ignored, moved to end of LCOMB
             if iln == sections['END']:
                 continue
 
