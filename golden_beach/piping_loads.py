@@ -19,14 +19,14 @@ def write_piping_loads(xlname: str, outname: str) -> None:
     xlpath = PATH.joinpath(xlname)
     outpath = PATH.joinpath(outname)
 
-    loadcns = pd.read_excel(xlpath, sheet_name='Load Case ID')
+    loadcns = pd.read_excel(xlpath, sheet_name='Load Case ID', converters={'SUFFIX': str})
 
     outstr = ''
     for row in loadcns.itertuples():
         sheet = row.Sheet
         col = int(row.Column)
         loadcn = row.LOADCN
-        dirn = int(loadcn[1:])
+        suffix = row.SUFFIX
         loadlb = row.LOADLB
         loadid = row.LOAD_ID
 
@@ -35,7 +35,7 @@ def write_piping_loads(xlname: str, outname: str) -> None:
         sup_labels = [ws.cell(row=i, column=1).value for i in range(3, 22)]
         data = []
         for irow in range(3, 22):
-            data.append([ws.cell(row=irow, column=i).value for i in range(col, col+6)])
+            data.append([ws.cell(row=irow, column=i).value for i in range(col, col + 6)])
         data = np.asarray(data) / 1000
         # np.savetxt(PATH.joinpath('test.txt'), data)
 
@@ -53,7 +53,7 @@ def write_piping_loads(xlname: str, outname: str) -> None:
             for val in loads[4:]:
                 outstr += f'{val:7.1f}'
             if loadid == 'PSXX':
-                remark = joint + f'_{dirn}'
+                remark = f'{joint}_{suffix}'
             else:
                 remark = loadid
             outstr += ' GLOB JOIN   '
@@ -65,7 +65,7 @@ def write_piping_loads(xlname: str, outname: str) -> None:
 
 def main():
 
-    xlname = 'connector_loads_20240830_dha.xlsx'
+    xlname = 'connector_loads_20241003.xlsx'
     outname = 'loadcn.txt'
 
     write_piping_loads(xlname, outname)
