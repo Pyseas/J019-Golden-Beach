@@ -87,8 +87,8 @@ def jnt_str(row: dict, line:str) -> str:
     outstr = line.strip()
     fixity = ''
     elasti = ''
-    if row['FX'] == 'PILEHD':
-        fixity = 'PILEHD'
+    if row['Special'] != -123456:
+        fixity = row['Special']
     else:
         for var in ['FX', 'FY', 'FZ', 'FRX', 'FRY', 'FRZ']:
             if row[var] == -123456:
@@ -122,7 +122,10 @@ def lcomb_str(lcomb: pd.DataFrame) -> str:
     outstr = 'LCOMB\n'
     for col in lcomb.columns[3:]:
         lc = lcomb[col].dropna()
-        outstr += 'LCOMB ' + f'{lc.name:04d} '
+        lcname = lc.name
+        if isinstance(lcname, int):
+            lcname = f'{lcname:04d}'
+        outstr += f'LCOMB {lcname: >4} '
         for ind, val in lc.items():
             loadcn = loadcns[ind]
             if isinstance(loadcn, int):
@@ -167,7 +170,8 @@ def make_new_model(xlname: str, basename: str, newname: str):
     title = titles.iloc[0][1]
     analysis_type = titles.iloc[1][1]
 
-    jnts = pd.read_excel(xlpath, sheet_name='joints', skiprows=1, usecols='A:J')
+    jnts = pd.read_excel(xlpath, sheet_name='joints', skiprows=1, usecols='A:K',
+                         converters={'Special': str})
     jnts.fillna(-123456, inplace=True)
     njnt = len(jnts.index)
     new_joints = []
