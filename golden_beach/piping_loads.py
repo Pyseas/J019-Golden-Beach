@@ -7,7 +7,7 @@ import numpy as np
 PATH = Path('.')
 
 
-def write_piping_loads(xlname: str, outname: str) -> None:
+def write_piping_loads(xlname: str | Path, outname: str | Path) -> None:
     """Write load data from a spreadsheet to a SACS format file.
 
     Args:
@@ -19,7 +19,8 @@ def write_piping_loads(xlname: str, outname: str) -> None:
     xlpath = PATH.joinpath(xlname)
     outpath = PATH.joinpath(outname)
 
-    loadcns = pd.read_excel(xlpath, sheet_name='Load Case ID', converters={'SUFFIX': str})
+    loadcns = pd.read_excel(xlpath, sheet_name='Load Case ID',
+                            converters={'LOAD_ID': str, 'SUFFIX': str})
 
     outstr = ''
     for row in loadcns.itertuples():
@@ -55,7 +56,10 @@ def write_piping_loads(xlname: str, outname: str) -> None:
             if loadid == 'PSXX':
                 remark = f'{joint}_{suffix}'
             else:
-                remark = loadid
+                remark = str(loadid)
+            if len(remark) > 8:
+                remark = remark[:8]
+
             outstr += ' GLOB JOIN   '
             outstr += f'{remark: >8}\n'
 
